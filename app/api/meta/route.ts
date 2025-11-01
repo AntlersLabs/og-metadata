@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import * as cheerio from 'cheerio';
+import { load } from 'cheerio';
 import { MetaData } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     }
 
     const html = await response.text();
-    const $ = cheerio.load(html);
+    const $ = load(html);
 
     // Extract all meta tags
     const metaData: MetaData = {
