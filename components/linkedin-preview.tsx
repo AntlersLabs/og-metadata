@@ -1,4 +1,5 @@
 import { MetaData } from '@/lib/types';
+import Image from 'next/image';
 
 interface LinkedInPreviewProps {
   metaData: MetaData;
@@ -6,18 +7,19 @@ interface LinkedInPreviewProps {
 
 export function LinkedInPreview({ metaData }: LinkedInPreviewProps) {
   const title = metaData.og.title || metaData.title || 'No title';
-  const description = metaData.og.description || metaData.description || 'No description';
   const image = metaData.og.image || '';
   const domain = metaData.og.url ? new URL(metaData.og.url).hostname : 'example.com';
 
   return (
     <div className="overflow-hidden border border-neutral-200 dark:border-neutral-800 max-w-[552px] bg-white dark:bg-neutral-900">
       {image && (
-        <div className="w-full aspect-[1.91/1] bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
-          <img
+        <div className="w-full aspect-[1.91/1] bg-neutral-100 dark:bg-neutral-800 overflow-hidden relative">
+          <Image
             src={image}
             alt={metaData.og.imageAlt || title}
-            className="w-full h-full object-cover"
+            fill
+            unoptimized
+            className="object-cover"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
             }}

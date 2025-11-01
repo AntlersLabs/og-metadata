@@ -1,4 +1,5 @@
 import { MetaData } from '@/lib/types';
+import Image from 'next/image';
 
 interface TwitterPreviewProps {
   metaData: MetaData;
@@ -17,13 +18,15 @@ export function TwitterPreview({ metaData }: TwitterPreviewProps) {
     <div className="overflow-hidden border border-neutral-200 dark:border-neutral-800 max-w-[504px] bg-white dark:bg-neutral-900">
       <div className={`flex ${isSummaryCard ? 'flex-row' : 'flex-col'}`}>
         {image && (
-          <div className={`bg-neutral-100 dark:bg-neutral-800 overflow-hidden ${
+          <div className={`bg-neutral-100 dark:bg-neutral-800 overflow-hidden relative ${
             isSummaryCard ? 'w-[125px] h-[125px] flex-shrink-0' : 'w-full aspect-[2/1]'
           }`}>
-            <img
+            <Image
               src={image}
               alt={metaData.twitter.imageAlt || title}
-              className="w-full h-full object-cover"
+              fill
+              unoptimized
+              className="object-cover"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
               }}

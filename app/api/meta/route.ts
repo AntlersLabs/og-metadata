@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
+import { MetaData } from '@/lib/types';
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,7 +42,7 @@ export async function POST(request: NextRequest) {
     const $ = cheerio.load(html);
 
     // Extract all meta tags
-    const metaData: Record<string, any> = {
+    const metaData: MetaData = {
       // Basic HTML meta
       title: $('title').first().text() || '',
       description: $('meta[name="description"]').attr('content') || '',

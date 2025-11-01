@@ -1,4 +1,5 @@
 import { MetaData } from '@/lib/types';
+import Image from 'next/image';
 
 interface FacebookPreviewProps {
   metaData: MetaData;
@@ -13,11 +14,13 @@ export function FacebookPreview({ metaData }: FacebookPreviewProps) {
   return (
     <div className="overflow-hidden bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 max-w-[500px]">
       {image && (
-        <div className="w-full aspect-[1.91/1] bg-neutral-100 dark:bg-neutral-800 overflow-hidden">
-          <img
+        <div className="w-full aspect-[1.91/1] bg-neutral-100 dark:bg-neutral-800 overflow-hidden relative">
+          <Image
             src={image}
             alt={metaData.og.imageAlt || title}
-            className="w-full h-full object-cover"
+            fill
+            unoptimized
+            className="object-cover"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
             }}
